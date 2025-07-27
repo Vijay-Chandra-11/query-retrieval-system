@@ -30,9 +30,17 @@ print("Sending request to the API...")
 response = requests.post(API_URL, headers=headers, json=payload)
 
 print(f"Status Code: {response.status_code}")
-print("--- Response JSON ---")
+print("--- Response ---")
 if response.status_code == 200:
-    print(json.dumps(response.json(), indent=4))
+    data = response.json()
+    for i, item in enumerate(data['answers']):
+        print(f"\n--- Answer #{i+1} ---")
+        print(f"Answer: {item['answer']}")
+        print("Sources:")
+        if item['sources']:
+            for source in item['sources']:
+                print(f"  - Page {source['page']}: '{source['content'][:80].strip()}...'")
+        else:
+            print("  - No sources found.")
 else:
-    # Print the detailed error from the server if something goes wrong
     print(response.text)
