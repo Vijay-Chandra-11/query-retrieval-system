@@ -14,16 +14,16 @@ Our key strategic decision was to build a system that is **entirely free to run*
 
 - **Backend:** FastAPI
 - **LLM:** Ollama (running Meta's Llama 3 8B model)
-- **Vector Search:** FAISS (in-memory)
+- **Vector Search:** ChromaDB (persistent)
 - **Embeddings:** Hugging Face `all-MiniLM-L6-v2` (local)
 - **Core Logic:** LangChain
 
 ## 4. Key Optimizations & Features
 
-- **Zero Cost (Maximum Token Efficiency):** By using a locally-hosted Ollama model, our API has zero operational cost and is not dependent on external API quotas or billing.
-- **High-Speed Concurrent Processing (Low Latency):** The API uses `asyncio` to process all user questions simultaneously, not one-by-one. This dramatically reduces the total response time.
-- **Instantaneous Caching:** The system intelligently caches processed documents. The first request for a document builds the search index, and all subsequent requests are nearly instantaneous.
-- **High Explainability:** Our API doesn't just return an answer; it returns the specific source text chunks from the document that were used to generate that answer, providing full traceability.
+- **Zero Cost (Maximum Token Efficiency):** By using a locally-hosted Ollama model, our API has zero operational cost.
+- **High-Speed Concurrent Processing (Low Latency):** The API uses `asyncio` to process all user questions simultaneously.
+- **Persistent Knowledge Base:** The system uses ChromaDB to create a persistent, multi-document knowledge base, so document processing is a one-time task.
+- **High Explainability:** The API returns the answer, the reasoning, and the specific source chunks from the document used to generate the answer.
 
 ## 5. How to Run
 

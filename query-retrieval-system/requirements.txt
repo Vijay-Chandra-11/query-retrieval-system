@@ -1,12 +1,8 @@
 fastapi
 uvicorn
-pydantic
 requests
 pypdf
 langchain
 langchain-community
-sentence-transformers
-faiss-cpu
 langchain-huggingface
-langchain-google-genai
-python-dotenv
+chromadb
