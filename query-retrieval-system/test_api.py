@@ -35,11 +35,19 @@ if response.status_code == 200:
     data = response.json()
     for i, item in enumerate(data['answers']):
         print(f"\n--- Answer #{i+1} ---")
-        print(f"Answer: {item['answer']}")
+        
+        # This block checks if the answer is a JSON string and parses it for clean printing
+        try:
+            answer_data = json.loads(item['answer'])
+            print(f"Answer: {answer_data.get('answer', item['answer'])}")
+            print(f"Reasoning: {answer_data.get('reasoning', 'N/A')}")
+        except (json.JSONDecodeError, TypeError):
+            print(f"Answer: {item['answer']}")
+
         print("Sources:")
         if item['sources']:
             for source in item['sources']:
-                print(f"  - Page {source['page']}: '{source['content'][:80].strip()}...'")
+                print(f"  - Page {source.get('page', 'N/A')}: '{source.get('content', '')[:80].strip()}...'")
         else:
             print("  - No sources found.")
 else:
